@@ -29,7 +29,7 @@ module.exports = {
     },
 
     getHomepage: {
-        endpoint: `${process.env.STRAPI_ADDRESS}/homepages`,
+        endpoint: `${process.env.STRAPI_ADDRESS}/categories`,
         method: "get"
     },
 

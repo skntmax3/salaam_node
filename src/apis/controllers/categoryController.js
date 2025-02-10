@@ -8,16 +8,14 @@ module.exports = {
         try {
             const { categoryText } = req?.query
 
-            const filters = categoryText ? { categoryText: { $eq: categoryText } } : {};
+            const filters = categoryText ? { name: { $eq: categoryText } } : {};
 
             const params = {
                 filters,
                 populate: [
                     "categoryIcon",
-                    "sub_categories",
-                    "sub_categories.sub_category_listings",
-                    "sub_categories.sub_category_listings.icon",
-                    "sub_categories.sub_category_listings.file"
+                    "subcategories",
+                     "banner",
                 ]
             };
             const data = await categoryService.getCategoryList(params)
@@ -74,17 +72,19 @@ module.exports = {
 
             const params = {
                 populate: [
-                    "banners",
-                    "banners.image",
-                    "categories",
-                    "categories.categoryIcon",
-                    "categories.sub_categories",
-                    "categories.sub_categories.sub_category_listings"
+                    // "banners",
+                    "categoryIcon",
+                    "subcategories",
+                     "banner",
+                      
+                    // "categories.categoryIcon",
+                    // "categories.sub_categories",
+                    // "categories.sub_categories.sub_category_listings"
                 ]
             };
+             
             const data = await categoryService.getHomepageData(params)
-
-            return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: data?.data[0] })
+            return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: data })
 
         } catch (error) {
             console.log("Error in getting category data", error)
