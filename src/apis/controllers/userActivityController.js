@@ -65,8 +65,6 @@ module.exports = {
 
             const userActivityData = await userActivityService.getUserActivity(params)
             console.log(userActivityData?.data?.[0])
-
-
             return res.status(200).json({ success: true, message: "Successfully fetched bookmark", data: userActivityData })
 
         } catch (error) {

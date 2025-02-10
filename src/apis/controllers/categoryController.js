@@ -22,6 +22,7 @@ module.exports = {
             };
             const data = await categoryService.getCategoryList(params)
 
+            
             return res.status(200).json({ success: true, message: "Successfully fetched Category List data", data: data?.data[0] })
 
         } catch (error) {
@@ -49,11 +50,11 @@ module.exports = {
                 return res.status(400).json({ success: false, message: "Invalid categoryType" });
             }
 
-            const data = await userService.createUserActivity({
-                data: {
+            // const data = await userService.createUserActivity({
+            //     data: {
 
-                }
-            })
+            //     }
+            // })
 
             // Create or update user activity record
             // const data = await strapi.entityService.create("api::user-activity.user-activity", {
