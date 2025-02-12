@@ -1,7 +1,9 @@
+const playlistService = require("../services/playlistService");
 const userActivityService = require("../services/userActivityService");
 const userService = require("../services/userService");
+const jwt = require("../utils/jwt");
 const jwtHelper = require("../utils/jwt")
-
+const constant =  require('./../utils/constant')
 module.exports = {
 
     getAllUsers: async (req, res) => {
@@ -18,7 +20,7 @@ module.exports = {
 
     createUser: async (req, res) => {
         try {
-            const { firstname, lastname, mobilenumber } = req.body;
+            const { firstname, lastname, mobilenumber  , password } = req.body;
 
             const userExistsWithPhone = await userService.getUser({
                 populate: {},
@@ -26,6 +28,7 @@ module.exports = {
                     mobilenumber: { "$eq": mobilenumber }
                 }
             });
+
             if (userExistsWithPhone.length) {
                 return res.status(200).json({
                     code: 203,
@@ -41,7 +44,7 @@ module.exports = {
                 email: `${mobilenumber}@salaam.com`,
                 username: mobilenumber,
                 mobilenumber: mobilenumber,
-                password: process.env.STRAPI_USER_PASSWORD,
+                password: password || process.env.STRAPI_USER_PASSWORD,
                 role: 1
             }
 
@@ -49,20 +52,33 @@ module.exports = {
             const phoneNumber = data?.mobilenumber
 
             const tokenExpireIn = "1h";
-            const token = jwtHelper.sign({ phoneNumber }, tokenExpireIn);
+            const token = jwtHelper.sign({ id: data?.id,  phoneNumber }, tokenExpireIn);
+
+
+            // also create a default playlist
+
+             const payload = {  
+                              data: {
+                                  playlist_name: "playlist1" ,
+                                  user_id:data?.id
+                                }
+                        };
+                   
+             let bearerToken  = `Bearer ${token}`
+             const playlistCreated = await playlistService.createPlaylist(payload , bearerToken )
 
             // create user-activity and relate to onboarded user
-            await userActivityService.createUserActivity({
-                data: {
-                    user: data?.id
-                }
-            })
+            //  let userData =  await userActivityService.createUserActivity({
+            //     data: {
+            //         user: data?.id
+            //     }
+            // })
 
             return res.status(200).json({
                 code: 200,
                 success: true,
                 msg: "User is created successfully",
-                accessToken: jwtHelper.sign({ phoneNumber }, process.env.JWT_TOKEN_EXPIRE_TIME),
+                accessToken: jwtHelper.sign({ id:data?.id ,  phoneNumber }, process.env.JWT_TOKEN_EXPIRE_TIME),
                 data: { data }
             })
         } catch (err) {
@@ -106,14 +122,45 @@ module.exports = {
 
     getUser: async (req, res) => {
         try {
-            const { phoneNumber } = req.query
+            const { mobilenumber } = req.query
+
+
             const data = await userService.getUser({
                 filters: {
-                    mobilenumber: { $eq: phoneNumber }
+                    mobilenumber: { $eq: mobilenumber }
                 }
             })
 
             return res.status(200).json({ code: 200, success: true, message: "Successfully fetched User data", data: data[0] })
+
+        } catch (error) {
+            console.log("Error in getting user data", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in user data" })
+        }
+    }  ,
+
+
+
+
+    checkUserExistOrNot: async (req, res) => {
+        try {
+            const { mobilenumber } = req.query
+
+
+            const data = await userService.getUser({
+                filters: {
+                    mobilenumber: { $eq: mobilenumber }
+                }
+            })
+ 
+            if(data.length==0)
+                    return res.status(200).json({ code: 200, success: true, message: `${data.length>0?"user found":"user not found"}`, data: data.length>0?true:false })
+            let user   = data[0]
+            // console.log("user exit " ,  data)
+            //   genrate jwt token for this 
+            
+            let jwtToken =  jwt.sign({id: user.id , phoneNumber:user.mobilenumber} , constant.tokenExpireIn)
+            return res.status(200).json({ code: 200, success: true, message: "user found", data: { jwt:jwtToken , user } })
 
         } catch (error) {
             console.log("Error in getting user data", error)

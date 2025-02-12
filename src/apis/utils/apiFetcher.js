@@ -58,7 +58,7 @@ const apiFetcher = async (options = {}) => {
             delete requestHeaders['Authorization']; // Ensure no auth header is sent
         }
 
-        console.log(url, params, data);
+        console.log(url, params, data , headers);
         const response = await axios({
             url,
             method,

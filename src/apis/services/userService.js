@@ -11,8 +11,8 @@ module.exports = {
             method: strapiApis.getUser.method,
             params: {
                 populate: "*",
-                ...data
-            }
+                ...data 
+            }   
         })
         return res
     },
@@ -45,6 +45,15 @@ module.exports = {
             url: strapiApis.editUser.endpoint + id,
             method: strapiApis.editUser.method,
             data: data
+        })
+        return res
+    },
+
+    createAuthToken : async (payload)=> {
+        const res = await apiFetcher({
+            url: strapiApis.generateUserToken.endpoint ,
+            method: strapiApis.generateUserToken.method,
+            data: payload
         })
         return res
     }

@@ -19,8 +19,6 @@ module.exports = {
                 ]
             };
             const data = await categoryService.getCategoryList(params)
-
-            
             return res.status(200).json({ success: true, message: "Successfully fetched Category List data", data: data?.data[0] })
 
         } catch (error) {
@@ -82,9 +80,18 @@ module.exports = {
                     // "categories.sub_categories.sub_category_listings"
                 ]
             };
+
+            const  carasolParams = {
+                populate:"*"
+            }
              
-            const data = await categoryService.getHomepageData(params)
-            return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: data })
+            const homepageData = await categoryService.getHomepageData(params)
+            let homepageBanner = await categoryService.getBanner()  // banner data 
+            let homepageCarasol = await categoryService.getCarasolContent(carasolParams)  // carasol 
+            homepageData.homepageBanner = homepageBanner
+            homepageData.homepageCarasol = homepageCarasol
+            
+            return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: homepageData  })
 
         } catch (error) {
             console.log("Error in getting category data", error)

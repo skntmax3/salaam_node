@@ -5,7 +5,7 @@ const secretKey = process.env.JWT_SECRET_KEY
 module.exports = {
     sign: (option, tokenExpireIn) => {
         console.log(option)
-        return jwt.sign({ option }, secretKey, { expiresIn: tokenExpireIn });
+        return jwt.sign({ ...option }, secretKey, { expiresIn: tokenExpireIn });
     },
 
     verify: (token) => {

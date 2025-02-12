@@ -33,6 +33,24 @@ module.exports = {
         method: "get"
     },
 
+    getHomepageBanner: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/global`,
+        method: "get"
+    },
+
+    getCarasolContent: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/carousels`,
+        method: "get"
+    },
+    postCarasolContent: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/carousels`,
+        method: "post"
+    },
+
+
+
+
+
     getLatestActivity: {
         endpoint: `${process.env.STRAPI_ADDRESS}/latest-activities`,
         method: "get"
@@ -89,6 +107,22 @@ module.exports = {
     getDuaFavourite: {
         endpoint: `${process.env.STRAPI_ADDRESS}/user-dua-favourites`,
         method: "post"
-    }
+    } ,
+
+    generateUserToken: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/auth/local`,
+        method: "post"
+    } ,
+
+
+
+    createPlaylist: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/playlists`,
+        method: "post"
+    } ,
+
+
+
+ 
 
 }

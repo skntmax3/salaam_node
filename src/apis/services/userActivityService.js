@@ -80,10 +80,22 @@ module.exports = {
         })
         return res
     },
+
     getDuaFavourite: async (data) => {
         const res = await apiFetcher({
             url: strapiApis.getDuaFavourite.endpoint,
             method: strapiApis.getDuaFavourite.method,
+            params: {
+                ...data
+            }
+        })
+        return res
+    } ,
+
+    generateAuthToken: async (data) => {
+        const res = await apiFetcher({
+            url: strapiApis.generateUserToken.endpoint,
+            method: strapiApis.generateUserToken.method,
             params: {
                 ...data
             }

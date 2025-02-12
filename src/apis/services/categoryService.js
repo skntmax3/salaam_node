@@ -28,14 +28,6 @@ module.exports = {
 
     getHomepageData: async (data) => {
 
-        console.log("params " , {
-            url: strapiApis.getHomepage.endpoint,
-            method: strapiApis.getHomepage.method,
-            params: {
-                ...data,
-            }
-        } )
-        
         const res = await apiFetcher({
             url: strapiApis.getHomepage.endpoint,
             method: strapiApis.getHomepage.method,
@@ -45,6 +37,33 @@ module.exports = {
         })
 
          console.log("categories>>>", res )
+        return res
+    } ,
+
+    getBanner: async (data) => {
+
+        const res = await apiFetcher({
+            url: strapiApis.getHomepageBanner.endpoint,
+            method: strapiApis.getHomepageBanner.method,
+            params: {
+                ...data,
+            }
+        })
+
+        return res
+    },
+
+    getCarasolContent: async (params) => {
+
+        const res = await apiFetcher({
+            url: strapiApis.getCarasolContent.endpoint,
+            method: strapiApis.getCarasolContent.method,
+            params: {
+                ...params,
+            }
+        })
+
+    
         return res
     }
 }

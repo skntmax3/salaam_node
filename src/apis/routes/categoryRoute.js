@@ -6,6 +6,8 @@ router
     .route("/getList")
     .get(categoryController.getCategoryListData)
 
-router.get("/homepage", categoryController.getHomepageData)
+router.get("/homepage",
+    categoryController.getHomepageData)
+    
 
 module.exports = router
