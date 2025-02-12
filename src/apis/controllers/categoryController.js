@@ -87,11 +87,27 @@ module.exports = {
                 populate:"*"
             }
              
-            const homepageData = await categoryService.getHomepageData(params)
+            const  recipesParams = {
+                populate:"*"
+            }
+
+            const  triviaParams = {
+                populate: "*",
+                sort: ["createdAt:desc"],
+                pagination: {
+                    limit: 1
+                }
+            }
+
+            const homepageData = await categoryService.getHomepageData(params) // category 
             let homepageBanner = await categoryService.getBanner()  // banner data 
             let homepageCarasol = await categoryService.getCarasolContent(carasolParams)  // carasol 
+            let recipies = await categoryService.getRecipes(recipesParams)  // carasol 
+            let todaysTrivia =  await categoryService.getTodaysTrivia(triviaParams)
             homepageData.homepageBanner = homepageBanner
             homepageData.homepageCarasol = homepageCarasol
+            homepageData.recipies = recipies
+            homepageData.trivia = todaysTrivia
             
             return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: homepageData  })
 

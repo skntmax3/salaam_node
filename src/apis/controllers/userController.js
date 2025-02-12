@@ -2,7 +2,8 @@ const playlistService = require("../services/playlistService");
 const userActivityService = require("../services/userActivityService");
 const userService = require("../services/userService");
 const jwt = require("../utils/jwt");
-const jwtHelper = require("../utils/jwt")
+const jwtHelper = require("../utils/jwt");
+const { generatePlaylistName } = require("../utils/utils");
 const constant =  require('./../utils/constant')
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
 
     createUser: async (req, res) => {
         try {
-            const { firstname, lastname, mobilenumber  , password } = req.body;
+            const { firstname, lastname, mobilenumber  , password , email  } = req.body;
 
             const userExistsWithPhone = await userService.getUser({
                 populate: {},
@@ -41,7 +42,7 @@ module.exports = {
             const request = {
                 firstname: firstname,
                 lastname: lastname || '',
-                email: `${mobilenumber}@salaam.com`,
+                email: `${email}`,
                 username: mobilenumber,
                 mobilenumber: mobilenumber,
                 password: password || process.env.STRAPI_USER_PASSWORD,
@@ -59,20 +60,13 @@ module.exports = {
 
              const payload = {  
                               data: {
-                                  playlist_name: "playlist1" ,
+                                  playlist_name: generatePlaylistName(firstname , email) ,
                                   user_id:data?.id
                                 }
                         };
                    
              let bearerToken  = `Bearer ${token}`
              const playlistCreated = await playlistService.createPlaylist(payload , bearerToken )
-
-            // create user-activity and relate to onboarded user
-            //  let userData =  await userActivityService.createUserActivity({
-            //     data: {
-            //         user: data?.id
-            //     }
-            // })
 
             return res.status(200).json({
                 code: 200,

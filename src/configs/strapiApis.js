@@ -121,9 +121,24 @@ module.exports = {
         method: "post"
     } ,
 
+    isUserHavePlaylist: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/playlists`,
+        method: "get"
+    } ,
+
 
     subcatContent: {
         endpoint: `${process.env.STRAPI_ADDRESS}/subcategories`,
+        method: "get"
+    } ,
+
+    getRecipies: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/recipes`,
+        method: "get"
+    } ,
+
+    getTrivia: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/trivias`,
         method: "get"
     } ,
 

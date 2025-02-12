@@ -62,8 +62,6 @@ module.exports = {
                 ...params,
             }
         })
-
-    
         return res
     },
 
@@ -74,9 +72,29 @@ module.exports = {
             params: {
                 ...data,
             }
-        })
+        }) 
+        return res
+    } ,
 
-        
+    getRecipes: async (data) => {
+        const res = await apiFetcher({
+            url: strapiApis.getRecipies.endpoint,
+            method: strapiApis.getRecipies.method,
+            params: {
+                ...data,
+            }
+        }) 
+        return res
+    } ,
+
+    getTodaysTrivia: async (data) => {
+        const res = await apiFetcher({
+            url: strapiApis.getTrivia.endpoint,
+            method: strapiApis.getTrivia.method,
+            params: {
+                ...data,
+            }
+        }) 
         return res
     } ,
 
