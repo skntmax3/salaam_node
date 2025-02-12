@@ -111,7 +111,8 @@ module.exports = {
                     icon: true,
                     subcat_content: {
                       populate: {
-                       audio_track:true 
+                       audio_track:true ,
+                       icon:true
                      }// Explicitly populate the nested relation
                     }
                 },
