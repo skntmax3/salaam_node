@@ -65,6 +65,20 @@ module.exports = {
 
     
         return res
-    }
+    },
+
+    getSubCatContent: async (data) => {
+        const res = await apiFetcher({
+            url: strapiApis.subcatContent.endpoint,
+            method: strapiApis.subcatContent.method,
+            params: {
+                ...data,
+            }
+        })
+
+        
+        return res
+    } ,
+
 }
 

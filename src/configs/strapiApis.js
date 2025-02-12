@@ -122,6 +122,13 @@ module.exports = {
     } ,
 
 
+    subcatContent: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/subcategories`,
+        method: "get"
+    } ,
+
+
+
 
  
 

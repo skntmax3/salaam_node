@@ -8,6 +8,11 @@ router
 
 router.get("/homepage",
     categoryController.getHomepageData)
+
+router.get("/getsubcat",
+categoryController.getSubCatContent)
+
+        
     
 
 module.exports = router

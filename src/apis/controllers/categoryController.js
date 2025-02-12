@@ -8,7 +8,8 @@ module.exports = {
         try {
             const { categoryText } = req?.query
 
-            const filters = categoryText ? { name: { $eq: categoryText } } : {};
+            const filters = categoryText ? { name: { 
+                $eq: categoryText } } : {};
 
             const params = {
                 filters,
@@ -16,6 +17,7 @@ module.exports = {
                     "categoryIcon",
                     "subcategories",
                      "banner",
+       
                 ]
             };
             const data = await categoryService.getCategoryList(params)
@@ -97,6 +99,43 @@ module.exports = {
             console.log("Error in getting category data", error)
             return res.status(500).json({ success: false, message: "Internal Server error in getting category list" })
         }
+    } ,
+
+    getSubCatContent: async (req, res) => {
+        try {
+             
+            const  { subcat_name } = req.query
+            const params = {
+                populate: {
+                    category: true,
+                    icon: true,
+                    subcat_content: {
+                      populate: {
+                       audio_track:true 
+                     }// Explicitly populate the nested relation
+                    }
+                },
+                filters: {
+                    subcatTitle: {
+                      $eq: subcat_name
+                    } ,
+                  
+                 
+                },
+                sort: ["createdAt:desc"]
+            };
+
+           
+            const subCatContent = await categoryService.getSubCatContent(params)
+            
+            return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: subCatContent  })
+
+        } catch (error) {
+            console.log("Error in getting category data", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in getting category list" })
+        }
     }
+
+
 
 };
