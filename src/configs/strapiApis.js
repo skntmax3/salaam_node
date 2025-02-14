@@ -23,6 +23,9 @@ module.exports = {
         method: "put"
     },
 
+   
+
+
     getUser: {
         endpoint: `${process.env.STRAPI_ADDRESS}/users`,
         method: "get"
@@ -142,7 +145,10 @@ module.exports = {
         method: "get"
     } ,
 
-
+    getTrivia: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/trivias/`,
+        method: "get"
+    },
 
 
  

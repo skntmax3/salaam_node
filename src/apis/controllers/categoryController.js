@@ -13,12 +13,17 @@ module.exports = {
 
             const params = {
                 filters,
-                populate: [
-                    "categoryIcon",
-                    "subcategories",
-                     "banner",
-       
-                ]
+                populate: {
+                    "categoryIcon":true ,
+                    "subcategories":true ,
+                     "banner":true ,
+                     "subcategories": {
+                         populate:{
+                            icon:true 
+                         }
+                     }
+
+                }
             };
             const data = await categoryService.getCategoryList(params)
             return res.status(200).json({ success: true, message: "Successfully fetched Category List data", data: data?.data[0] })

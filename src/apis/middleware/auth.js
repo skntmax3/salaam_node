@@ -12,7 +12,6 @@ const jwt = require("../utils/jwt")
 
         let decoded =await  jwt.verify(bearer_token )   
 
-        console.log("decoded>>.", decoded)
         req.userObj ={}
         const { id} = decoded 
          req.token = `Bearer ${bearer_token}`  
