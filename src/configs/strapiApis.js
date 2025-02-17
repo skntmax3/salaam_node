@@ -151,6 +151,12 @@ module.exports = {
     },
 
 
+    recipe: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/subcat-have-recipes/`,
+        method: "get"
+    },
+
+
  
 
 }

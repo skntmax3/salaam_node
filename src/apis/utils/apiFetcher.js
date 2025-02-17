@@ -45,6 +45,7 @@ const apiFetcher = async (options = {}) => {
     try {
         const { url, method = 'GET', headers = {}, params = {}, data = {} } = options;
 
+
         const endpoint = Object.keys(strapiApis).find(n =>
             strapiApis[n]?.endpoint === url && strapiApis[n]?.method === method
         );
@@ -58,7 +59,7 @@ const apiFetcher = async (options = {}) => {
             delete requestHeaders['Authorization']; // Ensure no auth header is sent
         }
 
-        console.log(url, params, data , headers);
+        console.log("url:",url, params, data , headers);
         const response = await axios({
             url,
             method,

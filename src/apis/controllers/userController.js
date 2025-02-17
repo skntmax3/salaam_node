@@ -10,7 +10,6 @@ module.exports = {
     getAllUsers: async (req, res) => {
         try {
             const data = await userService.getUser()
-
             return res.status(200).json({ success: true, message: "Successfully fetched User data", data: data })
 
         } catch (error) {
