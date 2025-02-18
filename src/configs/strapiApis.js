@@ -127,6 +127,14 @@ module.exports = {
         method: "post"
     } ,
 
+    updateToBookmark: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/user-bookmarks`,
+        method: "put"
+    } ,
+
+
+
+
     createPlaylist: {
         endpoint: `${process.env.STRAPI_ADDRESS}/playlists`,
         method: "post"

@@ -75,7 +75,7 @@ module.exports = {
     
             const payload = {               
                 filters : {
-                        user:{
+                        users:{
                              id:{
                                  $eq:id 
                              }
@@ -96,8 +96,9 @@ module.exports = {
             };
 
             const bookmark = await userService.getBookmark(payload , token )
-
-            let bk =  (Array.isArray(bookmark?.data) && bookmark?.data?.length>0) ? bookmark?.data[0].song_id : [] 
+      
+        
+            let bk =  (Array.isArray(bookmark?.data) && bookmark?.data?.length>0) ? bookmark?.data?.map(_=> _.song_id).flat() : [] 
              return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bk })
 
         } catch (error) {
@@ -110,12 +111,15 @@ module.exports = {
         try {
             const { token , userObj:{id}}  =  req
              const { song_id} = req.body 
-             const payload = {               
-                 user:id , 
-                 song_id:song_id || 20
+             const payload = { 
+                 data:{
+                     users:id , 
+                     song_id:song_id 
+                    }              
               };
        
-            const bookmarked = await userService.addSongToBookmark(payload , token)
+                let bookmarked = await userService.addSongToBookmark(payload , token)
+         
             return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bookmarked })
 
         } catch (error) {
