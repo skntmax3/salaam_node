@@ -56,6 +56,33 @@ module.exports = {
             data: payload
         })
         return res
-    }
+    },
+
+    getBookmark : async (payload , token)=> {
+        const res = await apiFetcher({
+            url: strapiApis.bookmark.endpoint ,
+            method: strapiApis.bookmark.method,
+            params: {...payload},
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    } ,
+
+    addSongToBookmark : async (payload,token)=> {
+        const res = await apiFetcher({
+            url: strapiApis.addToBookmark.endpoint ,
+            method: strapiApis.addToBookmark.method,
+            data: payload,
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    } ,
+    
+
+
 }
 

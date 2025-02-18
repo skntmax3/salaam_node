@@ -64,6 +64,66 @@ module.exports = {
             console.log("Error in getting category data", error)
             return res.status(500).json({ success: false, message: "Internal Server error in getting usrs playlist" })
         }
+    },
+
+    getUserBookmark: async (req, res) => {
+        try {
+            const { token , userObj:{id}}  =  req
+            
+            const { page =1, pageSize=10  } = req.query 
+
+    
+            const payload = {               
+                filters : {
+                        user:{
+                             id:{
+                                 $eq:id 
+                             }
+                          }
+                   },    
+                   
+                   populate:{
+                            song_id:{
+                                populate:"*"
+                            }
+                   },
+
+                    pagination: {
+                        page: page  ,
+                        pageSize:pageSize,
+                    },
+
+            };
+
+            const bookmark = await userService.getBookmark(payload , token )
+
+            let bk =  (Array.isArray(bookmark?.data) && bookmark?.data?.length>0) ? bookmark?.data[0].song_id : [] 
+             return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bk })
+
+        } catch (error) {
+            console.log("Error in getting category data", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in getting usrs bookmark" })
+        }
+    } ,
+
+    createUserBookmark: async (req, res) => {
+        try {
+            const { token , userObj:{id}}  =  req
+             const { song_id} = req.body 
+             const payload = {               
+                 user:id , 
+                 song_id:song_id || 20
+              };
+       
+            const bookmarked = await userService.addSongToBookmark(payload , token)
+            return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bookmarked })
+
+        } catch (error) {
+            console.log("Error in getting category data", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in getting usrs bookmark" })
+        }
     }
+
+
 
 };

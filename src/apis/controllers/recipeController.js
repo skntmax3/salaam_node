@@ -8,27 +8,26 @@ module.exports = {
     getRecipe: async (req, res) => {
         try {
 
-             const { subCatId, page } = req.query 
+             const { subCatId, page =1, pageSize=10  } = req.query 
              
-
-
              if(!subCatId) return res.status(500).json({ success: false, message: "please provide  recipe subcategory id , subCatId" })
-            
              
               const  recipeParams = {
+                
                 filters : {
                     subcategory:{
                         id:{
                             $eq:subCatId 
                           }
-                    } 
-                },     
+                       } 
+                   },
+                 
                 populate:"*",
                 pagination: {
-                    page: page || 1 ,
-                    pageSize: 10,
+                    page: page  ,
+                    pageSize:pageSize,
                     },
-           }            
+             }            
 
             let recipes  = await recipeService.getRecipes(recipeParams)
             return res.status(200).json({ success: true, message: `success `, data: recipes })

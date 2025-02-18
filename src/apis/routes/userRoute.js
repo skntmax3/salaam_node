@@ -30,6 +30,20 @@ const router = express.Router();
     .post(provideToken , playlistController.createPlaylist)
 
 
+
+    router
+    .route("/get-bookmark")
+    .get(provideToken , playlistController.getUserBookmark)
+    .post(provideToken ,playlistController.createUserBookmark)
+
+
+    router
+    .route("/add-to-bookmark")
+    .post(provideToken , playlistController.createUserBookmark)
+
+
+
+
    router
     .route("/latestActivity")
     .get(latestActivityController.getLatestActivity)

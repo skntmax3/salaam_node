@@ -125,7 +125,7 @@ module.exports = {
     getSubCatContent: async (req, res) => {
         try {
              
-            const  { subcat_name } = req.query
+            const  { subcat_name , page =1 , pageSize=10  } = req.query
             const params = {
                 populate: {
                     category: true,
@@ -141,10 +141,13 @@ module.exports = {
                     subcatTitle: {
                       $eq: subcat_name
                     } ,
-                  
-                 
                 },
-                sort: ["createdAt:desc"]
+                sort: ["createdAt:desc"] ,
+               
+                pagination:{
+                    page: page  ,
+                    pageSize: pageSize  
+                }
             };
 
            
