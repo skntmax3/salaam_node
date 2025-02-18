@@ -139,7 +139,7 @@ module.exports = {
 
 
     subcatContent: {
-        endpoint: `${process.env.STRAPI_ADDRESS}/subcategories`,
+        endpoint: `${process.env.STRAPI_ADDRESS}/subcat-have-contents`,
         method: "get"
     } ,
 

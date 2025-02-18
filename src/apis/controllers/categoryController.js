@@ -126,20 +126,41 @@ module.exports = {
         try {
              
             const  { subcat_name , page =1 , pageSize=10  } = req.query
+            // const params = {
+            //     populate: {
+            //         category: true,
+            //         icon: true,
+            //         subcat_content: {
+            //           populate: {
+            //            audio_track:true ,
+            //            icon:true
+            //          }// Explicitly populate the nested relation
+            //         }
+            //     },
+            //     filters: {
+            //         subcatTitle: {
+            //           $eq: subcat_name
+            //         } ,
+            //     },
+            //     sort: ["createdAt:desc"] ,
+               
+            //     pagination:{
+            //         page: page  ,
+            //         pageSize: pageSize  
+            //     }
+            // };
+
+            
+           
+            // const subCatContent = await categoryService.getSubCatContent(params)
+            
             const params = {
-                populate: {
-                    category: true,
-                    icon: true,
-                    subcat_content: {
-                      populate: {
-                       audio_track:true ,
-                       icon:true
-                     }// Explicitly populate the nested relation
-                    }
-                },
+                populate: "*",
                 filters: {
-                    subcatTitle: {
-                      $eq: subcat_name
+                    subcategories: {
+                        subcatTitle:{
+                             $eq: subcat_name
+                         }
                     } ,
                 },
                 sort: ["createdAt:desc"] ,
@@ -150,6 +171,7 @@ module.exports = {
                 }
             };
 
+            
            
             const subCatContent = await categoryService.getSubCatContent(params)
             
