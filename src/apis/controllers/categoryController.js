@@ -127,7 +127,6 @@ module.exports = {
              
             const  { subcat_name , page =1 , pageSize=10  } = req.query
            
-            
             const params = {
                 populate: "*",
                 filters: {
@@ -144,11 +143,10 @@ module.exports = {
                     pageSize: pageSize  
                 }
             };
-
-            
            
             const subCatContent = await categoryService.getSubCatContent(params)
-            
+
+     
             return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: subCatContent  })
 
         } catch (error) {

@@ -41,6 +41,12 @@ const router = express.Router();
     .route("/add-to-bookmark")
     .post(provideToken , playlistController.createUserBookmark)
 
+    router
+    .route("/is-bookmarked")
+    .get(provideToken , playlistController.isBookmarked)
+
+
+
 
 
 

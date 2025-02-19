@@ -132,6 +132,11 @@ module.exports = {
         method: "put"
     } ,
 
+    isBookmarked: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/user-bookmarks`,
+        method: "get"
+    } ,
+
 
 
 

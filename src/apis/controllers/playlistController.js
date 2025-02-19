@@ -71,7 +71,6 @@ module.exports = {
             const { token , userObj:{id}}  =  req
             
             const { page =1, pageSize=10  } = req.query 
-
     
             const payload = {               
                 filters : {
@@ -83,11 +82,10 @@ module.exports = {
                    },    
                    
                    populate:{
-                            song_id:{
+                            song_ids:{
                                 populate:"*"
                             }
                    },
-
                     pagination: {
                         page: page  ,
                         pageSize:pageSize,
@@ -96,9 +94,9 @@ module.exports = {
             };
 
             const bookmark = await userService.getBookmark(payload , token )
-      
+            console.log("bookmark", bookmark)
         
-            let bk =  (Array.isArray(bookmark?.data) && bookmark?.data?.length>0) ? bookmark?.data?.map(_=> _.song_id).flat() : [] 
+            let bk =  (Array.isArray(bookmark?.data) && bookmark?.data?.length>0) ? bookmark?.data?.map(_=> _.song_ids).flat() : [] 
              return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bk })
 
         } catch (error) {
@@ -114,7 +112,7 @@ module.exports = {
              const payload = { 
                  data:{
                      users:id , 
-                     song_id:song_id 
+                     song_ids:song_id 
                     }              
               };
        
@@ -126,8 +124,37 @@ module.exports = {
             console.log("Error in getting category data", error)
             return res.status(500).json({ success: false, message: "Internal Server error in getting usrs bookmark" })
         }
+    } ,
+
+    isBookmarked: async (req, res) => {
+        try {
+            const { token , userObj:{id}}  =  req
+             const { song_id} = req.query 
+
+             console.log(song_id , id )
+             const  payload = { 
+                    filters: {
+                      $and: [
+                        { song_ids: { $eq: song_id } },  // Match specific song_id
+                        { users: { $eq: id } }       // Match specific user_id
+                      ]
+                    },
+                    populate: "*"
+             }
+
+                let isBookmarked = await userService.isBookmarked(payload , token)
+                
+                let isSongBookmarked =  (Array.isArray(isBookmarked?.data) && isBookmarked?.data?.length>0) ? true : false 
+             
+            return res.status(200).json({ success: true, message: "success  ", data: isSongBookmarked })
+
+        } catch (error) {
+            console.log("Error ", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in getting usrs bookmark" })
+        }
     }
 
 
+  
 
 };

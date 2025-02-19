@@ -93,6 +93,29 @@ module.exports = {
         })
         return res
     } ,
+    addSongToBookmark : async (payload,token)=> {
+        const res = await apiFetcher({
+            url: strapiApis.addToBookmark.endpoint ,
+            method: strapiApis.addToBookmark.method,
+            data: payload,
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    } ,
+    
+    isBookmarked : async (payload,token)=> {
+        const res = await apiFetcher({
+            url: `${strapiApis.isBookmarked.endpoint}` ,
+            method: strapiApis.isBookmarked.method,
+            params: {...payload},
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    } ,
 
 
 }
