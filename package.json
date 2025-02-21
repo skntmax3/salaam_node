@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "cross-env NODE_ENV=dev  nodemon --experimental-modules --es-module-specifier-resolution=node ./index.js ",
+    "prod": "cross-env NODE_ENV=prod  node --experimental-modules --es-module-specifier-resolution=node ./index.js "
   },
   "author": "ritesh kumar",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",

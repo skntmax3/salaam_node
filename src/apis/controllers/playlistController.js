@@ -145,7 +145,6 @@ module.exports = {
                 let isBookmarked = await userService.isBookmarked(payload , token)
                 
                 let isSongBookmarked =  (Array.isArray(isBookmarked?.data) && isBookmarked?.data?.length>0) ? true : false 
-             
             return res.status(200).json({ success: true, message: "success  ", data: isSongBookmarked })
 
         } catch (error) {

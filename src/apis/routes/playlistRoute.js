@@ -12,9 +12,4 @@ const router = express.Router();
     router.route('/get-playlist')
     .get( provideToken, playlistController.isUserHavePlaylist )
 
-
-
-
-
-
 module.exports = router

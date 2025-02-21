@@ -1,4 +1,4 @@
-const middleware = require("./apis/middlewares/middleware");
+// const middleware = require("./apis/middlewares/middleware");
 const { express, cors } = require("./configs/importModules")
 const app = express()
 
