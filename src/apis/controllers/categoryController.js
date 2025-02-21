@@ -125,28 +125,34 @@ module.exports = {
     getSubCatContent: async (req, res) => {
         try {
              
-            const  { subcat_name , page =1 , pageSize=10  } = req.query
+            const  { subcat_name , subcat_id ,  page =1 , pageSize=10  } = req.query
            
+
+             const filterParam = 
+                subcat_name?
+                { subcatTitle:{
+                    $eq: subcat_name
+                     } }: {
+                         id:{
+                            $eq:Number(subcat_id) 
+                         }
+                    }
+
+                    
             const params = {
                 populate: "*",
                 filters: {
-                    subcategories: {
-                        subcatTitle:{
-                             $eq: subcat_name
-                         }
-                    } ,
+                    subcategories: {...filterParam},
                 },
                 sort: ["createdAt:desc"] ,
-               
                 pagination:{
                     page: page  ,
                     pageSize: pageSize  
                 }
             };
            
-            const subCatContent = await categoryService.getSubCatContent(params)
-
-     
+           
+            const subCatContent = await categoryService.getSubCatContent(params)     
             return res.status(200).json({ success: true, code: 200, message: "Successfully fetched Homepage data", data: subCatContent  })
 
         } catch (error) {
