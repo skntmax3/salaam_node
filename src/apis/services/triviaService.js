@@ -16,5 +16,30 @@ module.exports = {
         return res
     },
 
+    likeTrivia: async (data , token) => {
+        const res = await apiFetcher({
+            url: strapiApis.userLikesTrivia.endpoint,
+            method: strapiApis.userLikesTrivia.method,
+            data: data ,
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    },
+
+
+    getLikedTriviaByUser: async (data , token) => {
+        const res = await apiFetcher({
+            url: strapiApis.getLikedTriviaByUser.endpoint,
+            method: strapiApis.getLikedTriviaByUser.method,
+            params: {...data} ,
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    },
+
 }
 

@@ -8,4 +8,15 @@ const router = express.Router();
     .get(  triviaController.getTrivia )
 
 
+
+    router.route('/like_trivia')
+    .post(provideToken,  triviaController.likeTriviaByUser )
+
+
+    router.route('/get-trivia-liked-by-user')
+    .get(provideToken,  triviaController.getTriviaLikedByUser )
+
+
+
+
 module.exports = router

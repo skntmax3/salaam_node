@@ -166,10 +166,16 @@ module.exports = {
         method: "get"
     } ,
 
-    getTrivia: {
-        endpoint: `${process.env.STRAPI_ADDRESS}/trivias/`,
+    userLikesTrivia: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/users-likes-trivias/`,
+        method: "post"
+    },
+
+    getLikedTriviaByUser: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/users-likes-trivias/`,
         method: "get"
     },
+
 
 
     recipe: {

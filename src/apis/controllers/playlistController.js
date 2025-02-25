@@ -116,8 +116,7 @@ module.exports = {
                     }              
               };
        
-                let bookmarked = await userService.addSongToBookmark(payload , token)
-         
+            let bookmarked = await userService.addSongToBookmark(payload , token)
             return res.status(200).json({ success: true, message: "Successfully fetched usrs bookmark ", data: bookmarked })
 
         } catch (error) {
