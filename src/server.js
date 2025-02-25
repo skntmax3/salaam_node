@@ -13,6 +13,8 @@ app.get('/health', (req, res) => {
 
 // app.use(middleware.jwtVerification);
 
+
+
 app.use("/v1/", require("./apis/routes/router"));
 
 module.exports = app
