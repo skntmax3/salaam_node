@@ -28,6 +28,20 @@ module.exports = {
         return res
     },
 
+    dislikeTrivia: async (data , token) => {
+        const res = await apiFetcher({
+            url: strapiApis.dislikeUserTrivia.endpoint,
+            method: strapiApis.dislikeUserTrivia.method,
+            params: {
+                ...data 
+            }   ,
+            headers: {
+                authorization: token
+            },
+        })
+        return res
+    },
+
 
     getLikedTriviaByUser: async (data , token) => {
         const res = await apiFetcher({

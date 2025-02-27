@@ -63,6 +63,40 @@ module.exports = {
         }
     } ,
 
+    dislikeTrivia: async (req, res) => {
+        try {
+
+            const { token , userObj:{id} ,  }  =  req 
+            const {  triviaId} = req.body 
+            
+            if(!triviaId)
+             return res.status(400).json({ success: false, message: "Please provide triviaId" }) 
+
+            const  userParams = {
+                filter:{
+                    user_id: { $eq: userId },
+                    trivias: { $eq: triviaId },
+                },
+             }
+             
+
+            let dislikedTrivia  = await triviaService.dislikeTrivia(userParams  ,token )
+
+            if (dislikedTrivia.data.length === 0) {
+                return res.status(400).json({ success: false, message: "No trivia found" }) 
+              }
+
+              
+            
+            console.log("likedTrivia",dislikedTrivia)
+            return res.status(200).json({ success: true, message: `success `, data: dislikedTrivia })
+
+        } catch (error) {
+            console.log("Error in adding likes for trivia", error)
+            return res.status(500).json({ success: false, message: "Internal server error of adding trviai likes " })
+        }
+    } ,
+
 
     getTriviaLikedByUser: async (req, res) => {
         try {

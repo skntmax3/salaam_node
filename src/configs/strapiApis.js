@@ -171,6 +171,12 @@ module.exports = {
         method: "post"
     },
 
+    dislikeUserTrivia: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/users-likes-trivias/`,
+        method: "get"
+    },
+
+
     getLikedTriviaByUser: {
         endpoint: `${process.env.STRAPI_ADDRESS}/users-likes-trivias/`,
         method: "get"

@@ -17,6 +17,10 @@ const router = express.Router();
     .get(provideToken,  triviaController.getTriviaLikedByUser )
 
 
+    router.route('/dislike-trivia-by-user')
+    .post(provideToken,  triviaController.dislikeTrivia )
+
+
 
 
 module.exports = router
