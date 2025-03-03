@@ -72,8 +72,6 @@ module.exports = {
             if (!documentId)
                 return res.status(400).json({ success: false, message: "Please provide document" })
 
-
-
             let dislikedTrivia = await triviaService.dislikeTrivia( token, documentId)
 
             if (dislikedTrivia.data.length === 0) {
@@ -81,6 +79,7 @@ module.exports = {
             }
 
             console.log("likedTrivia", dislikedTrivia)
+
             return res.status(200).json({ success: true, message: `success `, data: dislikedTrivia })
 
         } catch (error) {
@@ -112,15 +111,14 @@ module.exports = {
                     page: page,
                     pageSize: pageSize,
                 },
-
             }
 
-
             let likedTrivia = await triviaService.getLikedTriviaByUser(userParams, token)
+            
             return res.status(200).json({ success: true, message: `success `, data: likedTrivia })
 
         } catch (error) {
-            console.log("Error in adding likes for trivia", error)
+            console.log("get like status for trivia ", error)
             return res.status(500).json({ success: false, message: "Internal server error of adding trviai likes " })
         }
     },
