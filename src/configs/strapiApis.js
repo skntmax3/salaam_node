@@ -172,8 +172,8 @@ module.exports = {
     },
 
     dislikeUserTrivia: {
-        endpoint: `${process.env.STRAPI_ADDRESS}/users-likes-trivias/`,
-        method: "get"
+        endpoint: `${process.env.STRAPI_ADDRESS}/remove-trivia-by-user/`,
+        method: "delete"
     },
 
 

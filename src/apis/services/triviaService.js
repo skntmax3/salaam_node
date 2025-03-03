@@ -28,13 +28,10 @@ module.exports = {
         return res
     },
 
-    dislikeTrivia: async (data , token) => {
+    dislikeTrivia: async (token, documentId) => {
         const res = await apiFetcher({
-            url: strapiApis.dislikeUserTrivia.endpoint,
+            url: strapiApis.dislikeUserTrivia.endpoint+documentId,
             method: strapiApis.dislikeUserTrivia.method,
-            params: {
-                ...data 
-            }   ,
             headers: {
                 authorization: token
             },
