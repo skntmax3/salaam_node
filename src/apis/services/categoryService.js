@@ -76,6 +76,17 @@ module.exports = {
         return res
     } ,
 
+    getDuaSubcontentItems: async (payload) => {
+        const res = await apiFetcher({
+            url: strapiApis.duaSubcontentItems.endpoint,
+            method: strapiApis.duaSubcontentItems.method,
+            params: {
+                ...payload,
+            }
+        }) 
+        return res
+    } ,
+    
     getRecipes: async (data) => {
         const res = await apiFetcher({
             url: strapiApis.getRecipies.endpoint,

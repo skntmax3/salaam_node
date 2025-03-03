@@ -12,6 +12,12 @@ router.get("/homepage",
 router.get("/getsubcat",
 categoryController.getSubCatContent)
 
+
+
+router.post("/get-dua-subcontent-items",
+    categoryController.getDuaSubcontentItems)
+    
+            
         
     
 

@@ -130,13 +130,15 @@ module.exports = {
 
              const filterParam = 
                 subcat_name?
-                { subcatTitle:{
+                { 
+                    subcatTitle:{
                     $eq: subcat_name
-                     } }: {
+                  }
+                  }: {
                          id:{
                             $eq:Number(subcat_id) 
-                         }
-                    }
+                         }                    
+                }
 
                     
             const params = {
@@ -159,7 +161,34 @@ module.exports = {
             console.log("Error in getting category data", error)
             return res.status(500).json({ success: false, message: "Internal Server error in getting category list" })
         }
-    }
+    }  ,
+
+    getDuaSubcontentItems: async (req, res) => {
+        try {
+            const { duaListItemId } = req.body;
+            const  {   page =1 , pageSize=10  } = req.query
+            if (!duaListItemId ) {
+                return res.status(400).json({ success: false, message: `Missing ${duaListItemId} fields` });
+            }
+            const params = {
+                populate: "*",
+                filters: {
+                    dua_subcontent_ids:  { id :{ $eq: duaListItemId} },
+                },
+                sort: ["createdAt:desc"] ,
+                pagination:{
+                    page: page  ,
+                    pageSize: pageSize  
+                }
+            };
+
+            const duaSubcontentItems = await categoryService.getDuaSubcontentItems(params)                
+            return res.status(200).json({ success: true, code: 200, message: " fetched subcontent data ", data: duaSubcontentItems  })
+
+        } catch (error) {
+
+        }
+    },
 
 
 

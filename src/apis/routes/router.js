@@ -12,6 +12,4 @@ router.use("/playlist/", playlistRouter)
 router.use("/trivia/", triviaRouter)
 router.use("/recipe/", recipeRouter)
 
-
-
 module.exports = router;

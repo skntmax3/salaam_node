@@ -156,6 +156,12 @@ module.exports = {
         method: "get"
     } ,
 
+    duaSubcontentItems: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/dua-subcontent-list-items`,
+        method: "get"
+    } ,
+
+
     getRecipies: {
         endpoint: `${process.env.STRAPI_ADDRESS}/recipes`,
         method: "get"
