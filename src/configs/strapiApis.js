@@ -8,6 +8,13 @@ module.exports = {
         method: "get"
     },
 
+
+    prayersListUrl: {
+        endpoint: `${process.env.STRAPI_ADDRESS}/subcategories`,
+        method: "get"
+    },
+
+
     createUser: {
         endpoint: `${process.env.STRAPI_ADDRESS}/users`,
         method: "post"

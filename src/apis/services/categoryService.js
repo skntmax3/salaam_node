@@ -26,6 +26,21 @@ module.exports = {
         return res
     },
 
+
+    getPrayersList: async (data) => {
+
+        const res = await apiFetcher({
+            url: strapiApis.prayersListUrl.endpoint,
+            method: strapiApis.prayersListUrl.method,
+            params: {
+                ...data,
+            }
+        })
+
+        return res
+    },
+
+
     getHomepageData: async (data) => {
 
         const res = await apiFetcher({
@@ -86,7 +101,7 @@ module.exports = {
         }) 
         return res
     } ,
-    
+
     getRecipes: async (data) => {
         const res = await apiFetcher({
             url: strapiApis.getRecipies.endpoint,

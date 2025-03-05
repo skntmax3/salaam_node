@@ -6,4 +6,20 @@
     return `${firstName}_${emailPrefix}_${randomWord}`;
 }
 
-module.exports = {generatePlaylistName}
+
+
+function getTime(date) {
+// Convert to 12-hour format
+let dateObj = new Date(date)
+let hours = dateObj.getUTCHours();
+let minutes = dateObj.getUTCMinutes();
+let amPm = hours >= 12 ? "PM" : "AM";
+
+hours = hours % 12 || 12; // Convert 0 to 12-hour format
+
+const formattedTime = `${hours}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+// console.log(formattedTime); // Output: 2:00 PM
+return formattedTime 
+}
+
+module.exports = {generatePlaylistName , getTime  } 

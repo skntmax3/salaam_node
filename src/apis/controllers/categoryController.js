@@ -22,7 +22,6 @@ module.exports = {
                             icon:true 
                          }
                      }
-
                 }
             };
             const data = await categoryService.getCategoryList(params)
@@ -33,6 +32,44 @@ module.exports = {
             return res.status(500).json({ success: false, message: "Internal Server error in getting category list" })
         }
     },
+     
+    getPrayerList: async (req, res) => {
+        try {
+            const { categoryText ,  reflectDate } = req.body
+            const { page =1, pageSize=10  } = req.body 
+
+            if(!categoryText)
+                return res.status(400).json({ success: false, code: 400, message: "categorytext is required ", data: []  })
+
+            const onDate =  reflectDate?new Date(reflectDate).toISOString().split("T")[0] :  new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+
+            const filters =  { 
+                category: { 
+                    name: { $eq: categoryText }  
+                },
+                duaTime: {
+                    $gte: `${onDate}T00:00:00.000Z`,
+                    $lt: `${onDate}T23:59:59.999Z`
+                }
+            }
+
+            const params = {
+                filters,
+                pagination: {
+                    page: page  ,
+                    pageSize:pageSize,
+                },
+            };
+            const prayers = await categoryService.getPrayersList(params)
+            return res.status(200).json({ success: true, message: "Successfully fetched prayer List data", data: prayers })
+
+        } catch (error) {
+            console.log("Error in getting category data", error)
+            return res.status(500).json({ success: false, message: "Internal Server error in getting category list" })
+        }
+    },
+
+
 
     editCategoryListData: async (req, res) => {
         try {
